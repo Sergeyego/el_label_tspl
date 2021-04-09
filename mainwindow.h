@@ -2,16 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QSqlQuery>
-#include <QDataWidgetMapper>
-#include <QComboBox>
 #include <QSettings>
-#include <QMap>
-#include <QCompleter>
-#include "dialogsettings.h"
-#include "modelro.h"
-#include "dialogcmd.h"
-#include "tprinter.h"
+#include <QStyle>
+#include <QToolButton>
+#include "formdata.h"
+#include "labels.h"
 
 namespace Ui {
 class MainWindow;
@@ -27,23 +22,13 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    ModelRo *modelPart;
-    QDataWidgetMapper *mapper;
-    QString getCodPSmall(int dpi);
-    QString getCodGSmall(int dpi);
+    FormData *data;
+    LabelE4570 *labelE4570;
+    LabelG4570 *labelG4570;
+    void createActions(LabelBase *l);
+
     void loadSettings();
     void saveSettings();
-    TPrinter *printerPSmall;
-    int getDots(double mm, int dpi);
-
-private slots:
-    void updPart();
-    void refreshData(QModelIndex index);
-    void createPSmallLabel();
-    void createGSmallLabel();
-    void settingsPrintPSmall();
-    void viewCmdPSmall();
-    void viewCmdGSmall();
 };
 
 #endif // MAINWINDOW_H
