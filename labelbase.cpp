@@ -35,11 +35,11 @@ int LabelBase::getDots(double mm)
     return dpi*mm/25;
 }
 
-QString LabelBase::ean13(double x, double y, QString ean, double h, double s)
+QString LabelBase::ean13(double x, double y, QString ean, double h, double s, int rotation)
 {
     QString c;
     if (ean.size()==12){
-        c=QString("BARCODE %1,%2,\"EAN13\",%3,2,0,%4,%5,\"%6\"\n").arg(getDots(x)).arg(getDots(y)).arg(getDots(h)).arg(getDots(s)).arg(getDots(s)).arg(ean);
+        c=QString("BARCODE %1,%2,\"EAN13\",%3,2,%7,%4,%5,\"%6\"\n").arg(getDots(x)).arg(getDots(y)).arg(getDots(h)).arg(getDots(s)).arg(getDots(s)).arg(ean).arg(rotation);
     }
     return c;
 }
@@ -54,9 +54,10 @@ QString LabelBase::logo(double x, double y)
     return QString::fromUtf8("PUTBMP %1,%2, \"logo.BMP\",1,100\n").arg(getDots(x)).arg(getDots(y));
 }
 
-QString LabelBase::text(double x, double y, QString t, int size)
+QString LabelBase::text(double x, double y, QString t, int size, int rotation)
 {
-    return QString::fromUtf8("TEXT %1,%2,\"0\",0,%3,%4,\"%5\"\n").arg(getDots(x)).arg(getDots(y)).arg(size).arg(size).arg(t);
+    QString s=t.replace("\"","'");
+    return QString::fromUtf8("TEXT %1,%2,\"0\",%6,%3,%4,\"%5\"\n").arg(getDots(x)).arg(getDots(y)).arg(size).arg(size).arg(s).arg(rotation);
 }
 
 void LabelBase::cfgPrinter()

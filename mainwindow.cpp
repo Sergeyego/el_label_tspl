@@ -18,6 +18,12 @@ MainWindow::MainWindow(QWidget *parent) :
     labelG4570 = new LabelG4570(QString::fromUtf8("Этикетка 45*70 гофрокороб"),45,70,2,data,this);
     createActions(labelG4570);
 
+    labelE5040 = new LabelE5040(QString::fromUtf8("Этикетка 50*40 пачка"),50,40,2.5,data,this);
+    createActions(labelE5040);
+
+    labelG5040 = new LabelG5040(QString::fromUtf8("Этикетка 50*40 гофрокороб"),50,40,2.5,data,this);
+    createActions(labelG5040);
+
     ui->actionPart->setIcon(this->style()->standardIcon(QStyle::SP_BrowserReload));
     connect(ui->actionPart,SIGNAL(triggered(bool)),data,SLOT(updPart()));
 }

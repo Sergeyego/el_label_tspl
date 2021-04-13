@@ -25,6 +25,8 @@ private:
     FormData *data;
     LabelE4570 *labelE4570;
     LabelG4570 *labelG4570;
+    LabelE5040 *labelE5040;
+    LabelG5040 *labelG5040;
     void createActions(LabelBase *l);
 
     void loadSettings();

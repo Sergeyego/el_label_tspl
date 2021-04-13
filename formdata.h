@@ -32,9 +32,11 @@ private:
     Ui::FormData *ui;
     ModelRo *modelPart;
     QDataWidgetMapper *mapper;
+    bool selectPart();
 
 private slots:
     void refreshData(QModelIndex index);
+    void genEan();
 
 public slots:
     void updPart();

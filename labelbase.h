@@ -27,8 +27,8 @@ protected:
     virtual QString getCod();
     int getDots(double mm);
     QString logo(double x, double y);
-    QString text(double x, double y, QString t, int size=10);
-    QString ean13(double x, double y, QString ean, double h=9, double s=0.375);
+    QString text(double x, double y, QString t, int size=10, int rotation=0);
+    QString ean13(double x, double y, QString ean, double h=9, double s=0.375, int rotation=0);
     QString print();
 
 signals:

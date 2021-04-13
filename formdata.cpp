@@ -33,6 +33,7 @@ FormData::FormData(QWidget *parent) :
     connect(ui->tableViewPart->selectionModel(),SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),mapper,SLOT(setCurrentModelIndex(QModelIndex)));
     connect(ui->tableViewPart->selectionModel(),SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),this,SLOT(refreshData(QModelIndex)));
     connect(ui->pushButtonUpd,SIGNAL(clicked(bool)),this,SLOT(updPart()));
+    connect(ui->pushButtonGen,SIGNAL(clicked(bool)),this,SLOT(genEan()));
 
     updPart();
 }
@@ -97,12 +98,7 @@ QString FormData::count()
     return QString::number(ui->spinBox->value());
 }
 
-void FormData::refreshData(QModelIndex /*index*/)
-{
-    ui->spinBox->setValue(1);
-}
-
-void FormData::updPart()
+bool FormData::selectPart()
 {
     QSqlQuery query;
     query.prepare("select p.id, p.n_s, p.dat_part, e.marka, p.diam, i.nam, ep.pack_ed, ep.pack_group, ep.mass_ed, ep.mass_group, ee.ean_ed, ee.ean_group "
@@ -115,7 +111,8 @@ void FormData::updPart()
                   "order by p.dat_part, p.n_s");
     query.bindValue(":d1",ui->dateEditBeg->date());
     query.bindValue(":d2",ui->dateEditEnd->date());
-    if (modelPart->execQuery(query)){
+    bool ok=modelPart->execQuery(query);
+    if (ok){
         ui->tableViewPart->setColumnHidden(0,true);
         ui->tableViewPart->resizeColumnsToContents();
         modelPart->setHeaderData(1,Qt::Horizontal,QString::fromUtf8("Парт."));
@@ -127,6 +124,40 @@ void FormData::updPart()
         for (int i=7; i<modelPart->columnCount(); i++){
             ui->tableViewPart->setColumnHidden(i,true);
         }
+    }
+    return ok;
+}
+
+void FormData::refreshData(QModelIndex /*index*/)
+{
+    ui->spinBox->setValue(1);
+    ui->pushButtonGen->setEnabled(ui->lineEditEanEd->text().isEmpty());
+}
+
+void FormData::genEan()
+{
+    int id_part=mapper->model()->data(mapper->model()->index(mapper->currentIndex(),0),Qt::EditRole).toInt();
+    QSqlQuery query;
+    query.prepare("select * from add_ean_el( :id_part )");
+    query.bindValue(":id_part",id_part);
+    if (query.exec()){
+        selectPart();
+        for (int i=0; i<ui->tableViewPart->model()->rowCount(); i++){
+            int id=ui->tableViewPart->model()->data(ui->tableViewPart->model()->index(i,0),Qt::EditRole).toInt();
+            if (id==id_part){
+                ui->tableViewPart->selectRow(i);
+                break;
+            }
+        }
+    } else {
+        QMessageBox::critical(this,QString::fromUtf8("Ошибка"),query.lastError().text(),QMessageBox::Ok);
+    }
+
+}
+
+void FormData::updPart()
+{
+    if (selectPart()){
         if (modelPart->rowCount()){
             ui->tableViewPart->selectRow(modelPart->rowCount()-1);
         }
