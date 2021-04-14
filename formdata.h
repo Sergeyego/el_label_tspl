@@ -27,6 +27,7 @@ public:
     QString eanEd();
     QString eanGr();
     QString count();
+    QString qrCode();
 
 private:
     Ui::FormData *ui;

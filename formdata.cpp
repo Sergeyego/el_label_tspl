@@ -98,6 +98,16 @@ QString FormData::count()
     return QString::number(ui->spinBox->value());
 }
 
+QString FormData::qrCode()
+{
+    QString t/*="https:\\www.czcm-weld.ru\n"*/;
+    t+="c="+ui->lineEditEanEd->text()+"\n";
+    t+="p="+ui->lineEditPart->text()+"-"+QString::number(ui->dateEditPart->date().year())+"\n";
+    t+="m="+ui->lineEditKvoEd->text()+"\n";
+    t+="https://www.czcm-weld.ru\n";
+    return t;
+}
+
 bool FormData::selectPart()
 {
     QSqlQuery query;
