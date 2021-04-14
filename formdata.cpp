@@ -100,7 +100,7 @@ QString FormData::count()
 
 QString FormData::qrCode()
 {
-    QString t/*="https:\\www.czcm-weld.ru\n"*/;
+    QString t;
     t+="c="+ui->lineEditEanEd->text()+"\n";
     t+="p="+ui->lineEditPart->text()+"-"+QString::number(ui->dateEditPart->date().year())+"\n";
     t+="m="+ui->lineEditKvoEd->text()+"\n";
