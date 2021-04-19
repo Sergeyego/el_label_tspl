@@ -2,10 +2,10 @@
 #define DIALOGSETTINGS_H
 
 #include <QDialog>
-#include <QFile>
-#include <QDebug>
-#include <QMessageBox>
-#include <QFileDialog>
+//#include <QFile>
+//#include <QDebug>
+//#include <QMessageBox>
+//#include <QFileDialog>
 #include "tprinter.h"
 
 namespace Ui {
@@ -27,9 +27,11 @@ private:
     TPrinter *printer;
 
 private slots:
-    void calibr();
     //void download();
     //void getSettings();
+
+signals:
+    void sigCalibrate();
 };
 
 #endif // DIALOGSETTINGS_H

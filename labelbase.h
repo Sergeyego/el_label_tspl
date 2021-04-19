@@ -20,7 +20,6 @@ protected:
     double width;
     double height;
     double gap;
-    int dpi;
     QString name;
     FormData *data;
     TPrinter *printer;
@@ -40,6 +39,7 @@ public slots:
     void cfgPrinter();
     void viewCmd();
     void printLabel();
+    void calibrate();
 };
 
 #endif // LABELBASE_H

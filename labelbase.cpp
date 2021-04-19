@@ -3,7 +3,6 @@
 LabelBase::LabelBase(QString nam, double w, double h, double g, FormData *d, QObject *parent) : QObject(parent), name(nam), width(w), height(h), gap(g), data(d)
 {
     printer = new TPrinter(name,this);
-    dpi=printer->getDpi();
 }
 
 void LabelBase::setActions(QAction *actionCfg, QAction *actionCmd, QAction *actionPrint)
@@ -32,7 +31,7 @@ QString LabelBase::getCod()
 
 int LabelBase::getDots(double mm)
 {
-    return dpi*mm/25;
+    return printer->getDpi()*mm/25;
 }
 
 QString LabelBase::normalize(QString t)
@@ -79,8 +78,8 @@ void LabelBase::cfgPrinter()
     DialogSettings d(printer);
     d.setWindowTitle(d.windowTitle()+": "+name);
     d.setLblSize(width,height,gap);
+    connect(&d,SIGNAL(sigCalibrate()),this,SLOT(calibrate()));
     d.exec();
-    dpi=printer->getDpi();
 }
 
 void LabelBase::viewCmd()
@@ -93,4 +92,12 @@ void LabelBase::printLabel()
 {
     QString c=getCod();
     printer->printDecode(c);
+}
+
+void LabelBase::calibrate()
+{
+    QString cmd;
+    cmd+=QString("SIZE %1 mm, %2 mm\n").arg(width).arg(height);
+    cmd+=QString("AUTODETECT %1, %2\n").arg(getDots(height)).arg(getDots(gap));
+    printer->printDecode(cmd);
 }
