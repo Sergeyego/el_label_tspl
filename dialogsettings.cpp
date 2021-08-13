@@ -12,11 +12,12 @@ DialogSettings::DialogSettings(TPrinter *p, QWidget *parent) :
     ui->comboBoxPrinters->setCurrentText(printer->getPrinterName());
 
     ui->spinBoxDpi->setValue(printer->getDpi());
+    ui->spinBoxDensity->setValue(printer->getDensity());
 
-    connect(ui->buttonBox,SIGNAL(accepted()),this,SLOT(accept()));
-    connect(ui->buttonBox,SIGNAL(rejected()),this,SLOT(reject()));
+    connect(ui->pushButtonOK,SIGNAL(clicked(bool)),this,SLOT(accept()));
     connect(ui->pushButtonCal,SIGNAL(clicked(bool)),this,SIGNAL(sigCalibrate()));
     connect(ui->spinBoxDpi,SIGNAL(valueChanged(int)),printer,SLOT(setDpi(int)));
+    connect(ui->spinBoxDensity,SIGNAL(valueChanged(int)),printer,SLOT(setDensity(int)));
 
     connect(ui->comboBoxPrinters,SIGNAL(currentIndexChanged(QString)),printer,SLOT(setPrinterName(QString)));
 }

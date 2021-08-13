@@ -25,7 +25,7 @@ QString LabelBase::getCod()
     cod.push_back(QString("SIZE %1 mm,%2 mm\n").arg(width).arg(height));
     cod.push_back(QString("GAP %1 mm\n").arg(gap));
     cod.push_back("CODEPAGE UTF-8\n");
-    cod.push_back("DENSITY 15\n");
+    cod.push_back(QString("DENSITY %1\n").arg(printer->getDensity()));
     return cod;
 }
 

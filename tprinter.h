@@ -26,6 +26,7 @@ public:
     void saveSettings();
     QStringList getPrinterList();
     int getDpi();
+    int getDensity();
 
 private:
     //QString host;
@@ -33,6 +34,7 @@ private:
     QString pname;
     QString printer_name;
     int dpi;
+    int density;
 
 signals:
 
@@ -41,6 +43,7 @@ public slots:
     //void setPort(int p);
     void setPrinterName(QString name);
     void setDpi(int d);
+    void setDensity(int d);
 };
 
 #endif // TPRINTER_H

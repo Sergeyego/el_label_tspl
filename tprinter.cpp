@@ -3,6 +3,7 @@
 TPrinter::TPrinter(QString name, QObject *parent) : QObject(parent)
 {
     pname=name;
+    density=12;
     loadSettings();
 }
 
@@ -94,6 +95,11 @@ void TPrinter::setDpi(int d)
     dpi=d;
 }
 
+void TPrinter::setDensity(int d)
+{
+    density=d;
+}
+
 /*QString TPrinter::getIp()
 {
     return host;
@@ -111,6 +117,7 @@ void TPrinter::loadSettings()
     //port=settings.value(pname+"_port",9100).toInt();
     printer_name=settings.value(pname+"_nam").toString();
     dpi=settings.value(pname+"_dpi",200).toInt();
+    density=settings.value(pname+"_density",12).toInt();
 }
 
 void TPrinter::saveSettings()
@@ -120,6 +127,7 @@ void TPrinter::saveSettings()
     //settings.setValue(pname+"_port",port);
     settings.setValue(pname+"_nam",printer_name);
     settings.setValue(pname+"_dpi",dpi);
+    settings.setValue(pname+"_density",density);
 }
 
 QStringList TPrinter::getPrinterList()
@@ -141,4 +149,9 @@ QStringList TPrinter::getPrinterList()
 int TPrinter::getDpi()
 {
     return dpi;
+}
+
+int TPrinter::getDensity()
+{
+    return density;
 }
