@@ -83,3 +83,19 @@ QString LabelG5040::getCod()
     cod.push_back(print());
     return cod;
 }
+
+LabelPal5040::LabelPal5040(QString nam, double w, double h, double g, FormData *d, QObject *parent) : LabelBase(nam,w,h,g,d,parent)
+{
+
+}
+
+QString LabelPal5040::getCod()
+{
+    QString cod=LabelBase::getCod();
+    cod.push_back(qrCode(5,3,data->qrCode(),6));
+    cod.push_back(text(5,26,QString::fromUtf8("Марка - ")+data->marka()+" ф "+data->diametr()));
+    cod.push_back(text(5,30,QString::fromUtf8("Партия - ")+data->part()+" от "+data->datePart()));
+    cod.push_back(text(5,34,QString::fromUtf8("Масса нетто, кг - ")+data->masPal()));
+    cod.push_back(print());
+    return cod;
+}

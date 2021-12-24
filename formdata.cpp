@@ -83,6 +83,11 @@ QString FormData::masGr()
     return ui->lineEditKvoGr->text();
 }
 
+QString FormData::masPal()
+{
+    return QString::number(ui->doubleSpinBoxKvoPal->value(),'f',1);
+}
+
 QString FormData::eanEd()
 {
     return ui->lineEditEanEd->text().left(12);
@@ -100,11 +105,12 @@ QString FormData::count()
 
 QString FormData::qrCode()
 {
+    int kvo=ui->doubleSpinBoxKvoPal->value()*10;
+    QString skvo=QString("%1").arg(kvo,6,'d',0,QChar('0'));
     QString t;
-    t+="c="+ui->lineEditEanEd->text()+"\n";
-    t+="p="+ui->lineEditPart->text()+"-"+QString::number(ui->dateEditPart->date().year())+"\n";
-    t+="m="+ui->lineEditKvoEd->text()+"\n";
-    t+="https://www.czcm-weld.ru\n";
+    t+=ui->lineEditEanEd->text();
+    t+=ui->lineEditPart->text()+"-"+QString::number(ui->dateEditPart->date().year());
+    t+=skvo;
     return t;
 }
 

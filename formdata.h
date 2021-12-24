@@ -24,6 +24,7 @@ public:
     QString packGr();
     QString masEd();
     QString masGr();
+    QString masPal();
     QString eanEd();
     QString eanGr();
     QString count();

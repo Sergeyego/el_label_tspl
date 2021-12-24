@@ -35,4 +35,12 @@ public:
 protected:
     virtual QString getCod();
 };
+
+class LabelPal5040 : public LabelBase
+{
+public:
+    LabelPal5040(QString nam, double w, double h, double g, FormData *d, QObject *parent);
+protected:
+    virtual QString getCod();
+};
 #endif // LABELS_H

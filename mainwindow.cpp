@@ -24,6 +24,9 @@ MainWindow::MainWindow(QWidget *parent) :
     labelG5040 = new LabelG5040(QString::fromUtf8("Этикетка 50*40 гофрокороб"),50,40,2.5,data,this);
     createActions(labelG5040);
 
+    labelPal5040 = new LabelPal5040(QString::fromUtf8("Этикетка 50*40 поддон"),50,40,2.5,data,this);
+    createActions(labelPal5040);
+
     ui->actionPart->setIcon(this->style()->standardIcon(QStyle::SP_BrowserReload));
     connect(ui->actionPart,SIGNAL(triggered(bool)),data,SLOT(updPart()));
 }
